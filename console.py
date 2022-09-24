@@ -176,6 +176,20 @@ class HBNBCommand(cmd.Cmd):
                     print("** no instance found **")
                     return False
                 del type(self).objs[destroy_key]
+            if 'update' in line_arg[1].split('('):
+                update_args = line_arg[1].split('(')
+                update_args_id = update_args[1].split(', ')
+                update_key = line_arg[0] + '.' + update_args_id[0][1:-1]
+                key_quotes = update_args_id[1].split('"')
+                key = key_quotes[1]
+                value_quote = update_args_id[2].split('"')
+                value = value_quote[1]
+                if update_key not in type(self).objs:
+                    print("** no instance found **")
+                    return False
+                obj = storage.all()[update_key]
+                obj.__dict__[key] = value
+                storage.save()
         else:
             print("** class doesn't exist **")
             return False
