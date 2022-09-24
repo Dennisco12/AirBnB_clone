@@ -15,14 +15,14 @@ class test_command:
     def test_prompt(self):
         self.assertEqual("(hbnb) ", HBNBCommand.prompt)
 
-    def test_create(self):
+    def test_create_BaseModel(self):
         with patch("sys.stdout", new=StringIO()) as f:
             self.assertFalse(HBNBCommand().onecmd("create BaseModel"))
             self.assertLess(1, len(f.getvalue().strip()))
             key = "BaseModel.{}".format(f.getvalue().strip())
             self.assertIn(key, storage.all().keys())
 
-    def test_show(self):
+    def test_show_BaseModel(self):
         with patch("sys.stdout", new=StringIO()) as f:
             self.assertFalse(HBNBCommand().onecmd("create BaseModel"))
             ID = f.getvalue().strip()
